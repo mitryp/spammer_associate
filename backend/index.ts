@@ -2,13 +2,12 @@ import express from 'express';
 import dotenv from 'dotenv';
 import {Env, validateEnv} from './src/config/env';
 import {connectToDatabase} from './src/config/database';
-import {configureReceiverRoutes} from "./src/routes/receiver_routes";
+import {configureRoutes} from "./src/routes/routes";
 
 dotenv.config();
+validateEnv();
 
 async function bootstrap() {
-    validateEnv();
-
     const app = express();
     const {serverHost, serverPort} = Env;
 
@@ -16,7 +15,7 @@ async function bootstrap() {
 
     await connectToDatabase();
 
-    configureReceiverRoutes(app);
+    configureRoutes(app);
 
     app.listen(serverPort, serverHost,
         () => console.log(`Started server on http://${serverHost}:${serverPort}`)

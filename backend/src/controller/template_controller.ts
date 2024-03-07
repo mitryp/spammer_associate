@@ -1,18 +1,19 @@
 import {Request, Response} from 'express';
-import {Receiver} from '../model/receiver';
+import {MailTemplate} from '../model/mail_template';
+import {ObjectId} from "mongodb";
 
-export class ReceiverController {
+export class TemplateController {
     static async getAll(_: Request, res: Response) {
-        const results = await Receiver.find().sort({email: 1});
+        const results = await MailTemplate.find().sort({title: 1});
         res.json(results);
     }
 
     static async create(req: Request, res: Response) {
         const body = await req.body;
-        const newReceiver = new Receiver(body);
+        const newTemplate = new MailTemplate(body);
 
         try {
-            const saved = await newReceiver.save();
+            const saved = await newTemplate.save();
             res.status(201).json(saved);
         } catch (error) {
             res.status(400).json({error});
@@ -20,14 +21,14 @@ export class ReceiverController {
     }
 
     static async remove(req: Request, res: Response) {
-        const email = req.params.email;
+        const id = req.params.id;
 
-        if (!email) {
-            res.status(400).json({error: 'No email was given'});
+        if (!id) {
+            res.status(400).json({error: 'No id was provided'});
             return;
         }
 
-        const wasDeleted = await Receiver.deleteOne({email})
+        const wasDeleted = await MailTemplate.deleteOne({_id: new ObjectId(id)})
             .then((r) => r.deletedCount > 0);
 
         res.sendStatus(wasDeleted ? 200 : 404);
