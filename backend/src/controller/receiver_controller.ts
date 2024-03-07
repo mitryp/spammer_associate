@@ -8,8 +8,7 @@ export class ReceiverController {
     }
 
     static async create(req: Request, res: Response) {
-        const body = await req.body;
-        const newReceiver = new Receiver(body);
+        const newReceiver = new Receiver(req.body);
 
         try {
             const saved = await newReceiver.save();

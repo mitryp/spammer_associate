@@ -1,0 +1,21 @@
+{
+  "name": "sa_frontend",
+  "version": "1.0.0",
+  "description": "A webdev course project frontend that uses Bootstrap",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --mode development --watch"
+  },
+  "private": true,
+  "devDependencies": {
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.2",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "glob": "^10.3.10",
+    "magic-comments-loader": "^2.1.1"
+  }
+}

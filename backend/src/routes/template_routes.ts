@@ -1,14 +1,14 @@
-import {Express, Router} from 'express';
-import {TemplateController} from "../controller/template_controller";
+import { Express, Router } from "express";
+import { TemplateController } from "../controller/template_controller";
 
-const templatePrefix = '/templates';
+const templatePrefix = "/templates";
 
 export function configureTemplateRoutes(app: Express) {
-    const router = Router();
+  const router = Router();
 
-    router.get('/', TemplateController.getAll);
-    router.post('/', TemplateController.create);
-    router.delete('/:id', TemplateController.remove);
+  router.get("/", (req, res) => TemplateController.getAll(req, res));
+  router.post("/", (req, res) => TemplateController.create(req, res));
+  router.delete("/:id", (req, res) => TemplateController.remove(req, res));
 
-    app.use(templatePrefix, router);
+  app.use(templatePrefix, router);
 }
