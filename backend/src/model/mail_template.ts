@@ -6,3 +6,8 @@ const mailTemplateSchema = new mongoose.Schema({
 });
 
 export const MailTemplate = mongoose.model('MailTemplate', mailTemplateSchema);
+
+export interface IMailTemplate {
+    title: string;
+    body: string;
+}
