@@ -14,11 +14,33 @@ export function receiverCard(receiver: receiver.Receiver) {
     const nameLabel = document.createElement('strong');
     nameLabel.innerText = 'Name:';
 
-    //<button class="btn btn-danger btn-sm float-right" onclick="removeReceiver(this)">Remove</button>
-    const button = document.createElement('button');
-    button.innerText = 'Remove';
-    button.className = 'btn btn-danger btn-sm float-right';
-    button.onclick = () => {
+    const editButton = document.createElement('button');
+    editButton.innerText = 'Edit';
+    editButton.className = 'btn btn-primary btn-sm float-right';
+    editButton.onclick = () => {
+        const modal = document.querySelector<HTMLDivElement>('#editReceiverModal');
+
+        if (!modal) {
+            console.error('Could not find the modal');
+            return;
+        }
+
+        modal.classList.add('show');
+        modal.style.display = 'block';
+        const form = modal.querySelector<HTMLFormElement>('#editReceiverForm')!;
+        form.dataset['email'] = receiver.email;
+        document.querySelector<HTMLSpanElement>('#editReceiverModalLabel span')!.innerText = receiver.email;
+
+        form.querySelector<HTMLInputElement>('#editFirstName')!.value = receiver.name.firstName;
+        form.querySelector<HTMLInputElement>('#editMiddleName')!.value = receiver.name.middleName ?? "";
+        form.querySelector<HTMLInputElement>('#editLastName')!.value = receiver.name.lastName;
+    }
+
+    //<button class="btn btn-danger btn-sm" onclick="removeReceiver(this)">Remove</button>
+    const removeButton = document.createElement('button');
+    removeButton.innerText = 'Remove';
+    removeButton.className = 'btn btn-danger btn-sm m-1';
+    removeButton.onclick = () => {
         ReceiverRepository.delete(receiver.email).then((r) => {
             console.log(
                 r ? `deleted ${receiver.email}` : 'could not delete'
@@ -32,7 +54,8 @@ export function receiverCard(receiver: receiver.Receiver) {
         document.createElement('br'),
         nameLabel, document.createTextNode(` ${ns.presentName(receiver.name)}`),
         document.createElement('br'),
-        button
+        editButton,
+        removeButton
     )
 
     return li;

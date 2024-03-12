@@ -43,7 +43,7 @@ export class ReceiverController {
             const updated = await Receiver.findOneAndUpdate({email}, {
                 name: {
                     firstName: firstName || existingName.firstName,
-                    middleName: middleName || existingName.middleName,
+                    middleName: middleName == null ? undefined : (middleName || existingName.middleName),
                     lastName: lastName || existingName.lastName,
                 }
             }, {new: true, upsert: false});

@@ -4,6 +4,8 @@ import {ReceiverRepository} from "./application/repository/receiver_repository";
 import {template} from "./data/model/mail_template";
 import Receiver = receiver.Receiver;
 import MailTemplate = template.MailTemplate;
+import ReceiverName = receiver.ReceiverName;
+import UpdateReceiverDto = receiver.UpdateReceiverDto;
 
 updateReceivers();
 
@@ -33,6 +35,32 @@ if (addButton) {
                 alert(err);
             });
     };
+}
+
+const saveEditButton = document.querySelector<HTMLButtonElement>('#saveEditedButton');
+if (saveEditButton) {
+    saveEditButton.onclick = (e) => {
+        e.preventDefault();
+
+        const form = document.querySelector<HTMLFormElement>('#editReceiverForm');
+        const email = form?.dataset['email'];
+
+        if (!form || !form.reportValidity() || !email) {
+            return;
+        }
+
+        const fd = new FormData(form);
+        const middleName = fd.get('editMiddleName') as string;
+        const dto: UpdateReceiverDto = {
+            name: {
+                firstName: fd.get('editFirstName') as string,
+                middleName: middleName ? middleName : null,
+                lastName: fd.get('editLastName') as string,
+            }
+        }
+
+        ReceiverRepository.update(email, dto).then(() => updateReceivers()).catch(alert);
+    }
 }
 
 const sendMailsButton = document.querySelector<HTMLButtonElement>('#send_emails');

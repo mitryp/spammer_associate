@@ -70,8 +70,51 @@
                 </ul>
             </div>
         </main>
+
+        <!-- Edit Receiver Modal -->
+        <div class="modal fade bg-black bg-opacity-25" id="editReceiverModal" tabindex="-1" role="dialog"
+             aria-labelledby="editReceiverModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editReceiverModalLabel">Edit receiver <span></span></h5>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editReceiverForm" data-email="">
+                            <div class="form-group">
+                                <label for="editFirstName">First Name:</label>
+                                <input type="text" class="form-control" id="editFirstName" name="editFirstName"
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editMiddleName">Middle Name (optional):</label>
+                                <input type="text" class="form-control" id="editMiddleName" name="editMiddleName">
+                            </div>
+                            <div class="form-group">
+                                <label for="editLastName">Last Name:</label>
+                                <input type="text" class="form-control" id="editLastName" name="editLastName" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeEditModal()">
+                            Close
+                        </button>
+                        <button type="button" class="btn btn-primary" id="saveEditedButton">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<script>
+    function closeEditModal() {
+        const modal = document.querySelector('#editReceiverModal');
+        modal.classList.remove('show');
+        modal.style.display = 'none';
+    }
+</script>
 
 </body>
 </html>

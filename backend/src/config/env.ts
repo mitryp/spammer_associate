@@ -18,5 +18,9 @@ export function validateEnv() {
         process.exit(1);
     }
 
-    console.log('Starting with config:\n', Env);
+    console.log('Starting with config:\n', {
+        ...Env,
+        senderPass: Env.senderPass ? '*redacted*' : undefined,
+        senderEmail: Env.senderEmail ? '*redacted*' : undefined
+    });
 }

@@ -11,14 +11,20 @@ export namespace receiver {
         email: string;
     }
 
+    export interface UpdateReceiverDto {
+        name: ReceiverName | {
+            middleName?: null | string
+        }
+    }
+
     export function presentName(name: ReceiverName): String {
         return `${name.firstName}${name.middleName ? ` ${name.middleName}` : ''} ${name.lastName}`;
     }
 
     export function isValidName(json: unknown): boolean {
         const maybeName = json as ReceiverName;
-
-        return !!maybeName.firstName && !!maybeName.firstName;
+        console.log(!!maybeName.firstName && !!maybeName.lastName);
+        return !!maybeName.firstName && !!maybeName.lastName;
     }
 
     export function isValid(json: unknown): boolean {

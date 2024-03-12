@@ -1,4 +1,5 @@
 import {receiver} from '../../data/model/receiver';
+import UpdateReceiver = receiver.UpdateReceiverDto;
 
 const prefix = '/receivers';
 
@@ -28,7 +29,24 @@ export class ReceiverRepository {
         });
 
         if (!res.ok) {
-            throw `An error occurred. Perhaps, this email already exists?`
+            throw 'An error occurred. Perhaps, this email already exists?';
+        }
+    }
+
+    static async update(email: string, updateDto: UpdateReceiver) {
+        console.log(updateDto);
+        if (!receiver.isValidName(updateDto.name)) {
+            throw 'The name format is incorrect';
+        }
+
+        const res = await fetch(`${prefix}/${email}`, {
+            headers: {'Content-Type': 'application/json'},
+            method: 'PATCH',
+            body: JSON.stringify(updateDto),
+        });
+
+        if (!res.ok) {
+            throw 'An error occurred';
         }
     }
 
