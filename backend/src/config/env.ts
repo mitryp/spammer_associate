@@ -8,7 +8,7 @@ export const Env = {
     mongoUri: process.env.MONGO_URI ?? 'mongodb://127.0.0.1:27017/sa_backend',
     frontendPath: process.env.FRONTEND_PATH ?? './../frontend',
     senderEmail: process.env.SENDER_EMAIL!,
-    senderPass: process.env.SENDER_PASS!,
+    senderPass: process.env.SENDER_GMAIL_PASS!,
 } as const;
 
 export function validateEnv() {
