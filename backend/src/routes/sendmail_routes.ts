@@ -6,7 +6,7 @@ const sendMailsPrefix = '/mails';
 export function configureSendMailRoutes(app: Express) {
     const router = Router();
 
-    router.post('/send', (req, res) => SendmailController.sendMails(req, res));
+    router.post('/send', SendmailController.sendMails);
 
     app.use(sendMailsPrefix, router);
 }

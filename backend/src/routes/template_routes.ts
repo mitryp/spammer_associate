@@ -6,9 +6,9 @@ const templatePrefix = "/templates";
 export function configureTemplateRoutes(app: Express) {
   const router = Router();
 
-  router.get("/", (req, res) => TemplateController.getAll(req, res));
-  router.post("/", (req, res) => TemplateController.create(req, res));
-  router.delete("/:id", (req, res) => TemplateController.remove(req, res));
+  router.get("/", TemplateController.getAll);
+  router.post("/", TemplateController.create);
+  router.delete("/:id", TemplateController.remove);
 
   app.use(templatePrefix, router);
 }
