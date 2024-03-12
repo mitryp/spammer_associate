@@ -7,7 +7,7 @@ const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: Env.senderEmail,
-        pass: '***REMOVED***'
+        pass: Env.senderPass,
     }
 });
 
@@ -21,7 +21,7 @@ function sendMailTo(address: string, subject: string, text: string): Promise<boo
         text: text,
     };
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
                 console.error(error);

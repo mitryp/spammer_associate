@@ -8,10 +8,12 @@ export const Env = {
     mongoUri: process.env.MONGO_URI ?? 'mongodb://127.0.0.1:27017/sa_backend',
     frontendPath: process.env.FRONTEND_PATH ?? './../frontend',
     senderEmail: process.env.SENDER_EMAIL!,
+    senderPass: process.env.SENDER_PASS!,
 } as const;
 
 export function validateEnv() {
-    if (!Env.serverPort || !Env.serverHost || !Env.mongoUri) {
+    if (!Env.serverPort || !Env.serverHost || !Env.mongoUri
+        || !Env.frontendPath || !Env.senderEmail || !Env.senderPass) {
         console.error('Environment was not set correctly:\n', Env);
         process.exit(1);
     }
