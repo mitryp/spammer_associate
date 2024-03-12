@@ -18,11 +18,47 @@ export class ReceiverController {
         }
     }
 
+    static async update(req: Request, res: Response) {
+        const email = req.params.email;
+        const {firstName, middleName, lastName} = req.body.name;
+
+        if (!email) {
+            res.status(400).json({error: 'No email was provided'});
+            return;
+        }
+
+        if (!firstName && !middleName && !lastName) {
+            res.status(400).json({error: 'No data to change was provided'});
+            return;
+        }
+
+        try {
+            const existingName = (await Receiver.findOne({email}))?.name;
+
+            if (!existingName) {
+                res.sendStatus(404);
+                return;
+            }
+
+            const updated = await Receiver.findOneAndUpdate({email}, {
+                name: {
+                    firstName: firstName || existingName.firstName,
+                    middleName: middleName || existingName.middleName,
+                    lastName: lastName || existingName.lastName,
+                }
+            }, {new: true, upsert: false});
+
+            res.json(updated);
+        } catch (error) {
+            res.status(400).json({error});
+        }
+    }
+
     static async remove(req: Request, res: Response) {
         const email = req.params.email;
 
         if (!email) {
-            res.status(400).json({error: 'No email was given'});
+            res.status(400).json({error: 'No email was provided'});
             return;
         }
 

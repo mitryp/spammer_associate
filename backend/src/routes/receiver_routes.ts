@@ -9,6 +9,7 @@ export function configureReceiverRoutes(app: Express) {
     router.get('/', ReceiverController.getAll);
     router.post('/', ReceiverController.create);
     router.delete('/:email', ReceiverController.remove);
+    router.patch('/:email', ReceiverController.update);
 
     app.use(receiverPrefix, router);
 }
